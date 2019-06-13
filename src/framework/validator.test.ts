@@ -1,23 +1,17 @@
-import { Validators } from './validators.class'
+import { Validator } from './validator.class'
 
 describe('Validators static methods', () => {
 
+  const validator = new Validator(',')
+
   test('Min', () => {
-    expect(Validators.min(100, 20)).toBeTruthy()
-    expect(Validators.min(100, 110)).toBeFalsy()
+    expect(validator.min(100, 20)).toBeTruthy()
+    expect(validator.min(100, 110)).toBeFalsy()
   })
 
   test('Max', () => {
-    expect(Validators.max(100, 20)).toBeFalsy()
-    expect(Validators.max(100, 110)).toBeTruthy()
-  })
-
-  test('Is numeric', () => {
-    expect(Validators.isNumeric(100)).toBeTruthy()
-    expect(Validators.isNumeric('100,000.3')).toBeTruthy()
-    expect(Validators.isNumeric('100.000,3')).toBeTruthy()
-    expect(Validators.isNumeric('100,,000.3')).toBeTruthy()
-    expect(Validators.isNumeric('a100,,000.3')).toBeFalsy()
+    expect(validator.max(100, 20)).toBeFalsy()
+    expect(validator.max(100, 110)).toBeTruthy()
   })
 
 })

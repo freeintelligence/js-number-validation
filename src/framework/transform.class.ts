@@ -1,4 +1,5 @@
 import { Validator } from './validator.class'
+import { Utils } from './utils.class'
 
 /**
  * Transform number
@@ -12,18 +13,21 @@ export class Transform {
 
   /**
    * New transform instance
-   * @param decimal decimal separador
-   * @param thousands thousands separador
+   * @param decimalSeparator decimal separador
+   * @param thousandSeparator thousands separador
    */
-  constructor(private decimal: string = '.', private thousands: string = ',') {
-    if (decimal !== '.' && decimal !== ',') {
+  constructor(private decimalSeparator: string = '.', private thousandSeparator: string = ',') {
+    if (decimalSeparator !== '.' && decimalSeparator !== ',') {
       throw new Error('Decimal separator must be dot (".") or comma (",").')
     }
-    if (thousands !== '.' && thousands !== ',') {
+    if (thousandSeparator !== '.' && thousandSeparator !== ',') {
       throw new Error('Thousand separator must be dot (".") or comma (",").')
     }
+    if (decimalSeparator === thousandSeparator) {
+      throw new Error('Decimal separador must be different to thousand separator.')
+    }
 
-    this.validator = new Validator(this)
+    this.validator = new Validator(this.decimalSeparator)
   }
 
   /**
@@ -32,7 +36,7 @@ export class Transform {
    * @param min min number allowed
    */
   public min(text: string | number, min: string | number) {
-    return this.toInt(this.validator.min(text, min) ? text : min)
+    return Utils.toInt(this.validator.min(text, min) ? text : min, this.decimalSeparator)
   }
 
   /**
@@ -41,25 +45,7 @@ export class Transform {
    * @param max max number allowed
    */
   public max(text: string | number, max: string | number) {
-    return this.toInt(this.validator.max(text, max) ? text : max)
-  }
-
-  /**
-   * Transform string to integer
-   * @param text string to transform to integer
-   */
-  public toInt(text: string | number): number {
-    if (typeof text === 'string') {
-      const num = Number(this.eliminateThousands(text).replace(new RegExp(`\\${this.decimal}`, 'g'), '.'))
-
-      if (!isNaN(num)) {
-        return num
-      }
-    } else if(typeof text === 'number') {
-      return text
-    }
-
-    return undefined
+    return Utils.toInt(this.validator.max(text, max) ? text : max, this.decimalSeparator)
   }
 
   /**
@@ -71,7 +57,7 @@ export class Transform {
       text = text.toString()
     }
 
-    return text.replace(new RegExp(`([^0-9\\${this.decimal}\\${this.thousands}])`, 'g'), '')
+    return text.replace(new RegExp(`([^0-9\\${this.decimalSeparator}\\${this.thousandSeparator}])`, 'g'), '')
   }
 
   /**
@@ -83,7 +69,7 @@ export class Transform {
       text = text.toString()
     }
 
-    return text.replace(new RegExp(`\\${this.thousands}`, 'g'), '')
+    return text.replace(new RegExp(`\\${this.thousandSeparator}`, 'g'), '')
   }
 
   /**
@@ -92,18 +78,18 @@ export class Transform {
    */
   public format(text: string | number) {
     if (typeof text === 'number') {
-      text = text.toString().replace(/\./g, this.decimal)
+      text = text.toString().replace(/\./g, this.decimalSeparator)
     }
 
     text = this.onlyValid(this.eliminateThousands(text))
 
     let final = ''
-    let [ whole, decimal ] = text.split(this.decimal)
+    let [ whole, decimal ] = text.split(this.decimalSeparator)
 
     while (whole.length > 3){
       const thousand = whole.substring(whole.length - 3)
 
-      final = this.thousands + thousand + final
+      final = this.thousandSeparator + thousand + final
       whole = whole.slice(0, -3)
     }
 
@@ -111,7 +97,7 @@ export class Transform {
       final = whole + final
     }
     if(decimal.length) {
-      final += this.decimal + decimal
+      final += this.decimalSeparator + decimal
     }
 
     return final
