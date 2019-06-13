@@ -1,0 +1,25 @@
+{
+  "name": "js-number-validation",
+  "version": "1.0.0",
+  "description": "A project with Nalv framework.",
+  "main": "./dist/index.js",
+  "scripts": {},
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "license": "ISC",
+  "bin": {
+    "js-number-validation": "./dist/main.js"
+  },
+  "dependencies": {
+    "@nalv/cli": "^2.0.0-rc.6",
+    "@nalv/dev": "^2.0.0-rc.1",
+    "@nalv/core": "^2.0.0-rc.12",
+    "@nalv/logger": "^2.0.0-rc.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.5",
+    "@types/node": "^11.13.7"
+  }
+}
