@@ -62,6 +62,10 @@ export class Transform {
     return text.replace(new RegExp(`([^0-9\\${this.decimal}\\${this.thousands}])`, 'g'), '')
   }
 
+  /**
+   * Eliminate thousands separator
+   * @param text Text (or number) to eliminate thousands separator
+   */
   public eliminateThousands(text: string | number) {
     if (typeof text === 'number') {
       text = text.toString()
@@ -72,6 +76,7 @@ export class Transform {
 
   /**
    * Format number
+   * @param text Text (or number) to transform
    */
   public format(text: string | number) {
     if (typeof text === 'number') {
@@ -83,7 +88,7 @@ export class Transform {
     let final = ''
     let [ whole, decimal ] = text.split(this.decimal)
 
-    while (whole.length> 3){
+    while (whole.length > 3){
       const thousand = whole.substring(whole.length - 3)
 
       final = this.thousands + thousand + final
