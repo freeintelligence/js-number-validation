@@ -1,4 +1,4 @@
-# Project / Nalv application!
+# js-number-validation
 
 Project created with Nalv CLI.
 ```sh

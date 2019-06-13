@@ -1,25 +1,34 @@
 {
-  "name": "js-number-validation",
+  "name": "number-validation",
   "version": "1.0.0",
-  "description": "A project with Nalv framework.",
+  "description": "Numerical validation.",
   "main": "./dist/index.js",
   "scripts": {},
   "author": {
-    "name": "",
-    "email": ""
+    "name": "FreeIntelligence",
+    "email": "free04381@gmail.com"
   },
   "license": "ISC",
-  "bin": {
-    "js-number-validation": "./dist/main.js"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeintelligence/js-number-validation.git"
   },
+  "bugs": {
+    "url": "https://github.com/freeintelligence/js-number-validation/issues"
+  },
+  "homepage": "https://github.com/freeintelligence/js-number-validation#readme",
+  "keywords": [
+    "number",
+    "validation",
+    "validator"
+  ],
   "dependencies": {
-    "@nalv/cli": "^2.0.0-rc.6",
-    "@nalv/dev": "^2.0.0-rc.1",
-    "@nalv/core": "^2.0.0-rc.12",
-    "@nalv/logger": "^2.0.0-rc.1"
+
+  },
+  "peerDependencies": {
+
   },
   "devDependencies": {
-    "typescript": "^3.4.5",
-    "@types/node": "^11.13.7"
+    "typescript": "^3.4.5"
   }
 }
