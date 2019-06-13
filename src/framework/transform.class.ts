@@ -36,7 +36,7 @@ export class Transform {
    * @param min min number allowed
    */
   public min(text: string | number, min: string | number) {
-    return Utils.toInt(this.validator.min(text, min) ? text : min, this.decimalSeparator)
+    return this.format(Utils.toInt(this.validator.min(text, min) ? text : min, this.decimalSeparator))
   }
 
   /**
@@ -45,7 +45,7 @@ export class Transform {
    * @param max max number allowed
    */
   public max(text: string | number, max: string | number) {
-    return Utils.toInt(this.validator.max(text, max) ? text : max, this.decimalSeparator)
+    return this.format(Utils.toInt(this.validator.max(text, max) ? text : max, this.decimalSeparator))
   }
 
   /**
