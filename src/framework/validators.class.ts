@@ -23,4 +23,17 @@ export class Validators {
     return (Transform.toInt(text) <= Transform.toInt(max))
   }
 
+  /**
+   * Is valid numeric string (to transform)
+   */
+  public static isNumeric(text: string | number) {
+    if (typeof text === 'number') {
+      return true
+    } else if (typeof text === 'string') {
+      return /^([0-9\.\,])*$/gi.test(text)
+    }
+
+    return false
+  }
+
 }
