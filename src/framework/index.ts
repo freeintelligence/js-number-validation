@@ -1,2 +1,3 @@
+export * from './utils.class'
 export * from './transform.class'
-export * from './validators.class'
+export * from './validator.class'

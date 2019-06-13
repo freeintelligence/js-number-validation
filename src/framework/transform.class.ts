@@ -1,4 +1,4 @@
-import { Validators } from './validators.class'
+import { Validator } from './validator.class'
 
 /**
  * Transform number
@@ -6,12 +6,24 @@ import { Validators } from './validators.class'
 export class Transform {
 
   /**
+   * Instance data
+   */
+  validator: Validator
+
+  /**
    * New transform instance
    * @param decimal decimal separador
    * @param thousands thousands separador
    */
   constructor(private decimal: string = '.', private thousands: string = ',') {
+    if (decimal !== '.' && decimal !== ',') {
+      throw new Error('Decimal separator must be dot (".") or comma (",").')
+    }
+    if (thousands !== '.' && thousands !== ',') {
+      throw new Error('Thousand separator must be dot (".") or comma (",").')
+    }
 
+    this.validator = new Validator(this)
   }
 
   /**
@@ -19,8 +31,8 @@ export class Transform {
    * @param text number to transform
    * @param min min number allowed
    */
-  public static min(text: string | number, min: string | number) {
-    return this.toInt(Validators.min(text, min) ? text : min)
+  public min(text: string | number, min: string | number) {
+    return this.toInt(this.validator.min(text, min) ? text : min)
   }
 
   /**
@@ -28,17 +40,17 @@ export class Transform {
    * @param text number to transform
    * @param max max number allowed
    */
-  public static max(text: string | number, max: string | number) {
-    return this.toInt(Validators.max(text, max) ? text : max)
+  public max(text: string | number, max: string | number) {
+    return this.toInt(this.validator.max(text, max) ? text : max)
   }
 
   /**
    * Transform string to integer
    * @param text string to transform to integer
    */
-  public static toInt(text: string | number): number {
+  public toInt(text: string | number): number {
     if (typeof text === 'string') {
-      const num = Number(text)
+      const num = Number(this.eliminateThousands(text).replace(new RegExp(`\\${this.decimal}`, 'g'), '.'))
 
       if (!isNaN(num)) {
         return num

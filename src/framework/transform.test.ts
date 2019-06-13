@@ -1,24 +1,26 @@
 import { Transform } from './transform.class'
 
-describe('Transform static methods', () => {
+describe('Transform instance methods', () => {
+
+  const transform = new Transform()
 
   test('To int', () => {
-    expect(Transform.toInt('100')).toEqual(100)
-    expect(Transform.toInt(100)).toEqual(100)
-    expect(Transform.toInt('-100')).toEqual(-100)
-    expect(Transform.toInt('--')).toBeUndefined()
+    expect(transform.toInt('100')).toEqual(100)
+    expect(transform.toInt(100)).toEqual(100)
+    expect(transform.toInt('-100')).toEqual(-100)
+    expect(transform.toInt('--')).toBeUndefined()
   })
 
   test('To min', () => {
-    expect(Transform.min('-100', -20)).toEqual(-20)
-    expect(Transform.min(500, -20)).toEqual(500)
+    expect(transform.min('-100', -20)).toEqual(-20)
+    expect(transform.min(500, -20)).toEqual(500)
   })
 
   test('To max', () => {
-    expect(Transform.max('100', 20)).toEqual(20)
-    expect(Transform.max(-100, '20')).toEqual(-100)
-    expect(Transform.max('-100', 20)).toEqual(-100)
-    expect(Transform.max(100, 20)).toEqual(20)
+    expect(transform.max('100', 20)).toEqual(20)
+    expect(transform.max(-100, '20')).toEqual(-100)
+    expect(transform.max('-100', 20)).toEqual(-100)
+    expect(transform.max(100, 20)).toEqual(20)
   })
 
 })
