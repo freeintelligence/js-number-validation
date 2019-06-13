@@ -16,6 +16,18 @@ export class Transform {
   }
 
   /**
+   * Limit a number to a maximum
+   * @param text number to transform
+   * @param max max number allowed
+   */
+  public static max(text: string | number, max: string | number) {
+    const original = this.toInt(text)
+    const maximum = this.toInt(max)
+
+    return (original > maximum) ? maximum : original
+  }
+
+  /**
    * Transform string to integer
    * @param text string to transform to integer
    */
