@@ -96,7 +96,7 @@ export class Transform {
     if (whole.length) {
       final = whole + final
     }
-    if(decimal.length) {
+    if(decimal) {
       final += this.decimalSeparator + decimal
     }
 
