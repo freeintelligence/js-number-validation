@@ -57,7 +57,9 @@ export class Transform {
       text = text.toString()
     }
 
-    return text.replace(new RegExp(`([^0-9\\${this.decimalSeparator}\\${this.thousandSeparator}])`, 'g'), '')
+    const isNegative = text[0] === '-'
+
+    return (isNegative ? '-' : '') + text.replace(new RegExp(`([^0-9\\${this.decimalSeparator}\\${this.thousandSeparator}])`, 'g'), '')
   }
 
   /**
@@ -85,8 +87,14 @@ export class Transform {
 
     let final = ''
     let [ whole, decimal ] = text.split(this.decimalSeparator)
+    let isNegative = false
 
-    while (whole.length > 3){
+    if (whole && whole.length && whole[0] === '-') {
+      isNegative = true
+      whole = whole.slice(1)
+    }
+
+    while (whole.length > 3) {
       const thousand = whole.substring(whole.length - 3)
 
       final = this.thousandSeparator + thousand + final
@@ -100,7 +108,7 @@ export class Transform {
       final += this.decimalSeparator + decimal
     }
 
-    return final
+    return isNegative ? '-' + final : final
   }
 
 }
