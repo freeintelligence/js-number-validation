@@ -32,7 +32,7 @@ describe('Transform instance methods', () => {
     expect(transform.format('200000,4')).toEqual('2,000,004')
     expect(transform.format('200.000,4')).toEqual('200.0004')
     expect(transform.format('2,00.000,4')).toEqual('200.0004')
-    expect(transform.format('2,00.4,000')).toEqual('200.0004')
+    expect(transform.format('2,00.4,000')).toEqual('200.4')
   })
 
 })
