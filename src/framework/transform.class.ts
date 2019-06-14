@@ -16,7 +16,7 @@ export class Transform {
    * @param decimalSeparator decimal separador
    * @param thousandSeparator thousands separador
    */
-  constructor(private decimalSeparator: string = '.', private thousandSeparator: string = ',') {
+  constructor(private decimalSeparator: string = '.', private thousandSeparator: string = ',', private decimalCount: number = 16) {
     if (decimalSeparator !== '.' && decimalSeparator !== ',') {
       throw new Error('Decimal separator must be dot (".") or comma (",").')
     }
@@ -104,11 +104,36 @@ export class Transform {
     if (whole.length) {
       final = whole + final
     }
-    if(decimal) {
-      final += this.decimalSeparator + decimal
+
+    if(decimal && this.decimalCount > 0) {
+      final += this.decimalSeparator + decimal.slice(0, this.decimalCount)
     }
 
-    return isNegative ? '-' + final : final
+    return this.removeLastZeros(isNegative ? '-' + final : final)
+  }
+
+  private removeLastZeros(text: string) {
+    let [ whole, decimal ] = text.split(this.decimalSeparator)
+
+    if(!decimal) {
+      return whole
+    } else {
+      let realDecimals = ''
+      let already = false
+
+      for(let i = decimal.length-1; i > -1; i--) {
+        if(decimal[i] !== '0' || already) {
+          realDecimals = decimal[i] + realDecimals
+          already = true
+        }
+      }
+
+      if(realDecimals.length) {
+        return `${whole}${this.decimalSeparator}${realDecimals}`
+      }
+    }
+
+    return `${whole}${this.decimalSeparator}${decimal}`
   }
 
 }
