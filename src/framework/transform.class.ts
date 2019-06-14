@@ -112,6 +112,10 @@ export class Transform {
     return this.removeLastZeros(isNegative ? '-' + final : final)
   }
 
+  /**
+   * Remove decimal zeros
+   * @param text Text (number) for remove decimal zeros
+   */
   private removeLastZeros(text: string) {
     let [ whole, decimal ] = text.split(this.decimalSeparator)
 
