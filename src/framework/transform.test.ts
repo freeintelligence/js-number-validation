@@ -27,6 +27,10 @@ describe('Transform instance methods', () => {
     expect(transform.eliminateThousands('20,000')).toEqual('20000')
   })
 
+  test('To integer', () => {
+    expect(transform.toInt('2,000.4')).toEqual(2000.4)
+  })
+
   test('Format number', () => {
     expect(transform.format('200000.4')).toEqual('200,000.4')
     expect(transform.format('200000,4')).toEqual('2,000,004')

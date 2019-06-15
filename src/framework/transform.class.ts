@@ -81,6 +81,14 @@ export class Transform {
   }
 
   /**
+   * Transform number (string) to integer
+   * @param text text (or number)
+   */
+  public toInt(text: string | number) {
+    return Utils.toInt(text, this.decimalSeparator)
+  }
+
+  /**
    * Format number
    * @param text Text (or number) to transform
    */
