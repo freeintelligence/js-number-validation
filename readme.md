@@ -59,6 +59,13 @@ eliminateThousands(text: string | number)
 transform.eliminateThousands('9,000.2') // "9000.2"
 transform.eliminateThousands('19.000,2') // "19000,2"
 ```
+### toInt
+```js
+toInt(text: string | number)
+
+transform.toInt(9000.2) // 9000.2
+transform.toInt('19000,2') // 19000.2
+```
 ### format
 ```js
 format(text: string | number)
