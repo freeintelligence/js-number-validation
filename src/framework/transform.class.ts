@@ -10,13 +10,16 @@ export class Transform {
    * Instance data
    */
   validator: Validator
+  decimalSeparator: string
+  thousandSeparator: string
+  decimalCount: number
 
   /**
    * New transform instance
    * @param decimalSeparator decimal separador
    * @param thousandSeparator thousands separador
    */
-  constructor(private decimalSeparator: string = '.', private thousandSeparator: string = ',', private decimalCount: number = 16) {
+  constructor(decimalSeparator: string = '.', thousandSeparator: string = ',', decimalCount: number = 32) {
     if (decimalSeparator !== '.' && decimalSeparator !== ',') {
       throw new Error('Decimal separator must be dot (".") or comma (",").')
     }
@@ -28,6 +31,9 @@ export class Transform {
     }
 
     this.validator = new Validator(this.decimalSeparator)
+    this.decimalSeparator = decimalSeparator
+    this.thousandSeparator = thousandSeparator
+    this.decimalCount = decimalCount > 0 ? decimalCount : 0
   }
 
   /**
@@ -78,7 +84,7 @@ export class Transform {
    * Format number
    * @param text Text (or number) to transform
    */
-  public format(text: string | number) {
+  public format(text: string | number, decimalCount: number = this.decimalCount) {
     if (typeof text === 'number') {
       text = text.toString().replace(/\./g, this.decimalSeparator)
     }
@@ -105,8 +111,8 @@ export class Transform {
       final = whole + final
     }
 
-    if(decimal && this.decimalCount > 0) {
-      final += this.decimalSeparator + decimal.slice(0, this.decimalCount)
+    if(decimal && decimalCount > 0) {
+      final += this.decimalSeparator + decimal.slice(0, decimalCount)
     }
 
     return this.removeLastZeros(isNegative ? '-' + final : final)
