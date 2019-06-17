@@ -7,11 +7,6 @@ import { Utils } from './utils.class'
 export class Validator {
 
   /**
-   * Instance data
-   */
-  parentTransform: Transform
-
-  /**
    * Constructor
    * @param decimalSeparator decimal separator
    */

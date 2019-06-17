@@ -7,6 +7,7 @@ describe('Transform instance methods', () => {
   test('To min', () => {
     expect(transform.min('-100', -20)).toEqual('-20')
     expect(transform.min(500, -20)).toEqual('500')
+    expect(transform.min('-100.5453', -200)).toEqual('-100.5453')
   })
 
   test('To max', () => {

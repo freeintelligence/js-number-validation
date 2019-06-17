@@ -30,10 +30,11 @@ export class Transform {
       throw new Error('Decimal separador must be different to thousand separator.')
     }
 
-    this.validator = new Validator(this.decimalSeparator)
     this.decimalSeparator = decimalSeparator
     this.thousandSeparator = thousandSeparator
     this.decimalCount = decimalCount > 0 ? decimalCount : 0
+
+    this.validator = new Validator(this.decimalSeparator)
   }
 
   /**
@@ -42,7 +43,7 @@ export class Transform {
    * @param min min number allowed
    */
   public min(text: string | number, min: string | number) {
-    return this.format(Utils.toInt(this.validator.min(text, min) ? text : min, this.decimalSeparator))
+    return this.format(this.toInt(this.validator.min(text, min) ? text : min))
   }
 
   /**
@@ -51,7 +52,7 @@ export class Transform {
    * @param max max number allowed
    */
   public max(text: string | number, max: string | number) {
-    return this.format(Utils.toInt(this.validator.max(text, max) ? text : max, this.decimalSeparator))
+    return this.format(this.toInt(this.validator.max(text, max) ? text : max))
   }
 
   /**
