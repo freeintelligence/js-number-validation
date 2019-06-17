@@ -1,4 +1,3 @@
-import { Transform } from './transform.class'
 import { Utils } from './utils.class'
 
 /**
